@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趙克秦 Iris | 數位行銷與專案管理專家</title>
+    
+    <!-- SEO / GEO / AEO 架構優化 -->
+    <meta name="description" content="趙克秦 (Iris Chao) - 具備10年以上跨國專案管理與數位行銷經驗，擅長跨部門溝通、SEO內容策略與AI技術應用。">
+    <meta name="keywords" content="趙克秦, Iris Chao, 數位行銷, 專案管理, 跨國專案, 電商營運, SEO, 廣告投放, 履歷, 作品集">
+    <meta name="author" content="趙克秦 Iris">
+    
+    <!-- Open Graph (社群分享/SEO) -->
+    <meta property="og:title" content="趙克秦 Iris | 數位行銷與專案管理專家">
+    <meta property="og:description" content="具備10年以上跨國專案管理與數位行銷經驗，擅長跨部門溝通、SEO內容策略與AI技術應用。">
+    <meta property="og:image" content="https://duk.tw/uptzQ4.jpg">
+    <meta property="og:url" content="https://your-website-url.com">
+    <meta property="og:type" content="profile">
+    <meta property="og:locale" content="zh_TW">
+
+    <!-- Schema.org JSON-LD (AEO/GEO 結構化資料，便於 AI 引擎抓取重點履歷) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "趙克秦",
+      "alternateName": "Iris Chao",
+      "jobTitle": "Digital Marketing & Project Manager",
+      "image": "https://duk.tw/uptzQ4.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "新北市",
+        "addressCountry": "TW"
+      },
+      "email": "unacherry1989@gmail.com",
+      "sameAs": [
+        "https://www.instagram.com/iriskechin/",
+        "https://www.linkedin.com/in/iriskochin/"
+      ],
+      "knowsAbout": ["數位行銷", "專案管理", "SEO", "電子商務", "AI 應用"],
+      "description": "具備10年以上跨國專案管理與數位行銷經驗，致力於確保各項大型計畫皆能達成高品質精準交付。"
+    }
+    </script>
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 Google 字體 (Noto Sans TC) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 設定 Tailwind 自訂主題顏色 (參考 Pinterest 優雅大地色系) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#9c8167',   /* 質感奶茶/駝色 */
+                        secondary: '#d9cfc5', /* 淺米色 */
+                        accent: '#6b5846',    /* 深褐色 */
+                        dark: '#2c2825',      /* 接近黑色的深灰，提升閱讀舒適度 */
+                        light: '#f7f5f0',     /* 溫暖的象牙白背景 */
+                        white: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* 平滑滾動效果 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f7f5f0;
+            color: #2c2825;
+            overflow-x: hidden;
+        }
+
+        /* 漸層背景 */
+        .hero-bg {
+            background: linear-gradient(135deg, #f7f5f0 0%, #e6dfd6 100%);
+        }
+
+        /* 滾動動畫 class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 導覽列 Navbar -->
+    <nav id="navbar" class="fixed w-full bg-light/90 backdrop-blur-md z-50 transition-all duration-300 border-b border-secondary/30">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold tracking-wider text-dark hover:text-primary transition-colors">
+                IRIS CHAO.
+            </a>
+            
+            <!-- 電腦版選單 -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-dark hover:text-primary font-medium transition-colors">首頁</a>
+                <a href="#about" class="text-dark hover:text-primary font-medium transition-colors">關於我</a>
+                <a href="#experience" class="text-dark hover:text-primary font-medium transition-colors">工作經歷</a>
+                <a href="#portfolio" class="text-dark hover:text-primary font-medium transition-colors">作品集</a>
+                <a href="#contact" class="text-dark hover:text-primary font-medium transition-colors">聯絡資訊</a>
+            </div>
+
+            <!-- 手機版漢堡選單按鈕 -->
+            <button id="mobile-menu-btn" class="md:hidden text-dark text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- 手機版下拉選單 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 border-t border-gray-100">
+            <div class="flex flex-col px-6 py-4 space-y-4 text-center">
+                <a href="#home" class="mobile-link text-dark hover:text-primary font-medium">首頁</a>
+                <a href="#about" class="mobile-link text-dark hover:text-primary font-medium">關於我</a>
+                <a href="#experience" class="mobile-link text-dark hover:text-primary font-medium">工作經歷</a>
+                <a href="#portfolio" class="mobile-link text-dark hover:text-primary font-medium">作品集</a>
+                <a href="#contact" class="mobile-link text-dark hover:text-primary font-medium">聯絡資訊</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+    <!-- 首頁 Hero 區塊 (全新優化排版) -->
+    <section id="home" class="min-h-screen flex items-center justify-center hero-bg pt-28 pb-16 px-6 relative overflow-hidden">
+        <!-- 裝飾背景光暈 -->
+        <div class="absolute top-10 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 w-full reveal active">
+            
+            <!-- 左側：精緻大頭照與核心定位徽章 (佔 5 欄) -->
+            <div class="lg:col-span-5 flex flex-col items-center lg:items-start">
+                <div class="relative group">
+                    <!-- 外框裝飾環 -->
+                    <div class="absolute -inset-2 bg-gradient-to-tr from-primary/30 to-secondary rounded-full blur opacity-75 group-hover:opacity-100 transition duration-500"></div>
+                    <!-- 大頭照本體 -->
+                    <div class="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                        <img src="https://duk.tw/uptzQ4.jpg" alt="趙克秦 Iris" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
+
+                <!-- 亮點標籤：讓人一眼看出實力 -->
+                <div class="flex flex-wrap gap-2 mt-6 justify-center lg:justify-start">
+                    <span class="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider">
+                        <i class="fas fa-globe-americas mr-1"></i> 10+年 跨國專案管理
+                    </span>
+                    <span class="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider">
+                        <i class="fas fa-chart-line mr-1"></i> 數位行銷與電商操盤
+                    </span>
+                    <span class="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider">
+                        <i class="fas fa-brain mr-1"></i> AI-First 策略實踐
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 右側：俐落層次文字排版 (佔 7 欄) -->
+            <div class="lg:col-span-7 text-center lg:text-left">
+                <div class="inline-block uppercase tracking-[0.2em] text-xs md:text-sm font-bold text-primary mb-3 bg-white/60 px-4 py-1.5 rounded-full border border-secondary/40 shadow-sm">
+                    Digital Marketing & Senior Project Manager
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-dark mb-6 tracking-tight leading-[1.15]">
+                    打造精準交付的 <br class="hidden sm:inline">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">跨國專案與行銷美學</span>
+                </h1>
+                
+                <p class="text-base md:text-lg text-gray-700 mb-8 leading-relaxed font-normal max-w-2xl">
+                    我是 <strong class="text-dark font-semibold">趙克秦 (Iris)</strong>。擅長跨部門溝通、外部代理商對接與行銷資產推進。擁有強烈自主學習熱情與 AI-First 思考模式，致力於確保各項大型計畫皆能達成高品質精準交付。
+                </p>
+
+                <!-- 行動呼叫按鈕 -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#about" class="bg-primary hover:bg-accent text-white px-8 py-3.5 rounded-full font-medium transition-all duration-300 shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+                        <span>了解更多經歷</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="#contact" class="bg-white hover:bg-light text-primary border border-primary/40 px-8 py-3.5 rounded-full font-medium transition-all duration-300 text-center shadow-sm">
+                        與我聯繫
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 關於我 About 區塊 -->
+    <section id="about" class="py-24 px-6 bg-white">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">關於我 <span class="text-primary">About Me</span></h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div class="bg-light p-8 md:p-10 rounded-3xl shadow-sm border border-secondary/20 leading-relaxed text-gray-700 text-lg">
+                    <h3 class="text-2xl font-bold text-dark mb-4 border-b border-secondary/30 pb-2">專業優勢</h3>
+                    <p class="mb-4">
+                        我能靈活運用 Gemini、ChatGPT 等 AI 工具，結合嚴謹的時程管控與品牌視覺審美。擁有豐富的電商營運、SEO 內容策略規劃及 Meta/Google 廣告操盤經驗。
+                    </p>
+                    <ul class="space-y-3 mt-6 text-base font-medium">
+                        <li class="flex items-center gap-3"><i class="fas fa-graduation-cap text-primary w-5"></i> 國立新竹教育大學 藝術與設計學系學士</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-certificate text-primary w-5"></i> AI技術輔助購物廣告 / Google Analytics 認證</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-language text-primary w-5"></i> TOEIC 660分</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-primary w-5"></i> 新北市, 台灣</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-dark mb-4">核心技能 <span class="text-sm font-normal text-gray-500 ml-2">Core Skills</span></h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white border border-secondary/50 text-dark px-4 py-2 rounded-full text-sm shadow-sm">行銷企劃</span>
+                            <span class="bg-white border border-secondary/50 text-dark px-4 py-2 rounded-full text-sm shadow-sm">數據分析</span>
+                            <span class="bg-white border border-secondary/50 text-dark px-4 py-2 rounded-full text-sm shadow-sm">平面設計</span>
+                            <span class="bg-white border border-secondary/50 text-dark px-4 py-2 rounded-full text-sm shadow-sm">AI技術應用</span>
+                            <span class="bg-white border border-secondary/50 text-dark px-4 py-2 rounded-full text-sm shadow-sm">短影音創作</span>
+                            <span class="bg-white border border-secondary/50 text-dark px-4 py-2 rounded-full text-sm shadow-sm">專案管理</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-dark mb-4">軟體與工具 <span class="text-sm font-normal text-gray-500 ml-2">Tools</span></h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium">Illustrator / Photoshop / Canva</span>
+                            <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium">Gemini / ChatGPT / Claude</span>
+                            <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium">Capcut / 美圖秀秀 / 威力導演</span>
+                            <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium">Slack / monday / Notion / Asana</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作經歷 Experience 區塊 -->
+    <section id="experience" class="py-24 px-6 bg-light relative">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">工作經歷 <span class="text-primary">Experience</span></h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- 經歷 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-secondary/20 flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <h3 class="text-xl font-bold text-dark">網路行銷企劃</h3>
+                        <p class="text-primary font-medium mt-1">Ogaland 日商歐格樂園</p>
+                        <p class="text-gray-500 text-sm mt-2"><i class="far fa-calendar-alt mr-2"></i> 2025/4 - 2025/11</p>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l-2 border-light pl-0 md:pl-6 pt-4 md:pt-0">
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 leading-relaxed">
+                            <li><strong>電商營運與促銷：</strong>統籌品牌官網與各大通路營運，帶動賣場月轉換率提升3%~5%，整體營收成長8%。</li>
+                            <li><strong>績效行銷與廣告優化：</strong>操盤 Meta 與 Google 廣告，透過 A/B 測試於3個月內將 ROAS 由 2.2 提升至 3.0。</li>
+                            <li><strong>SEO 內容策略：</strong>規劃官網 SEO 體質與內容策略，核心關鍵字進入 Google 首頁，自然流量成長10%。</li>
+                            <li><strong>跨部門專案落地：</strong>主導新產品包裝視覺定調，建立跨部門標準協作流程，行銷專案 100% 按時交付。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 經歷 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-secondary/20 flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <h3 class="text-xl font-bold text-dark">設計師 / 跨國專案管理</h3>
+                        <p class="text-primary font-medium mt-1">PSI Custom Sportswear</p>
+                        <p class="text-gray-500 text-sm mt-2"><i class="far fa-calendar-alt mr-2"></i> 2016/9 - 2024/12</p>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l-2 border-light pl-0 md:pl-6 pt-4 md:pt-0">
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 leading-relaxed">
+                            <li><strong>跨國專案管理：</strong>全英文主導跨國遠距團隊協作，負責任務配置，帶動團隊達成年增長5%~8%業績目標。</li>
+                            <li><strong>營運與平台建置：</strong>獨立負責 Shopify 電商平台建置、維護與視覺優化，主導平面文宣設計。</li>
+                            <li><strong>製程優化：</strong>專注三鐵運動衣與客製化設計，精通數位印刷與校色流程，成功降低前端錯誤率10%。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 經歷 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-secondary/20 flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <h3 class="text-xl font-bold text-dark">自媒體內容創作者</h3>
+                        <p class="text-primary font-medium mt-1">個人品牌經營 (兼職)</p>
+                        <p class="text-gray-500 text-sm mt-2"><i class="far fa-calendar-alt mr-2"></i> 2019/6 - Present</p>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l-2 border-light pl-0 md:pl-6 pt-4 md:pt-0">
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 leading-relaxed">
+                            <li>獨立接洽美妝、餐飲與保養品牌合作專案，進行圖文創作、短影音企劃與社群營運。</li>
+                            <li><strong>榮譽與認可：</strong>連續三年獲得【社群金點賞】肯定；獲選擔任第三屆【全家品牌大使】。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 經歷 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-secondary/20 flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <h3 class="text-xl font-bold text-dark">聯合創辦人 / 設計師</h3>
+                        <p class="text-primary font-medium mt-1">亞彥時尚創藝設計有限公司</p>
+                        <p class="text-gray-500 text-sm mt-2"><i class="far fa-calendar-alt mr-2"></i> 2015/9 - 2016/8</p>
+                    </div>
+                    <div class="md:w-2/3 border-l-0 md:border-l-2 border-light pl-0 md:pl-6 pt-4 md:pt-0">
+                        <ul class="list-disc list-inside text-gray-600 space-y-2 leading-relaxed">
+                            <li>參與創業與業務開發，為企業客戶提供 CIS 識別系統、包裝與網頁設計整合方案。</li>
+                            <li>熟悉專案成本控制、跨單位協調與商業市場需求。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集 Portfolio 區塊 -->
+    <section id="portfolio" class="py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">精選作品 <span class="text-primary">Portfolio</span></h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-500">更多平面視覺與行銷專案展示</p>
+            </div>
+            
+            <!-- 靜態載入作品圖片 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 作品 1 -->
+                <div class="group relative overflow-hidden rounded-2xl shadow-sm border border-secondary/10 h-64 bg-light">
+                    <img src="https://img.ai365.fans/cdn-cgi/image/width=1400,quality=90,format=auto/artworks/76a075ba-f613-41eb-9b06-a51c410955dc/tkw1mjh82ui.png" alt="精選作品展示 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <!-- 作品 2 -->
+                <div class="group relative overflow-hidden rounded-2xl shadow-sm border border-secondary/10 h-64 bg-light">
+                    <img src="https://img.ai365.fans/cdn-cgi/image/width=1400,quality=90,format=auto/artworks/76a075ba-f613-41eb-9b06-a51c410955dc/v312vkuxbs.png" alt="精選作品展示 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <!-- 作品 3 -->
+                <div class="group relative overflow-hidden rounded-2xl shadow-sm border border-secondary/10 h-64 bg-light">
+                    <img src="https://img.ai365.fans/cdn-cgi/image/width=1400,quality=90,format=auto/artworks/76a075ba-f613-41eb-9b06-a51c410955dc/3yygrpv0ww9.jpg" alt="精選作品展示 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+            </div>
+
+            <!-- 新增完整作品集連結按鈕 -->
+            <div class="mt-12 text-center">
+                <a href="https://unacherry1989.wixsite.com/irischao" target="_blank" class="inline-flex items-center gap-2 bg-primary hover:bg-accent text-white px-8 py-4 rounded-full font-medium transition-all duration-300 shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-1">
+                    <i class="fas fa-external-link-alt"></i>
+                    查看完整作品集 (My Portfolio)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡資訊 Contact 區塊 -->
+    <section id="contact" class="py-24 px-6 bg-light">
+        <div class="max-w-4xl mx-auto reveal text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">與我聯絡 <span class="text-primary">Contact</span></h2>
+            <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-12"></div>
+            
+            <div class="bg-dark text-white rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                
+                <h3 class="text-2xl font-semibold mb-4 relative z-10">準備好開始合作了嗎？</h3>
+                <p class="text-gray-300 mb-8 relative z-10 max-w-lg mx-auto">
+                    如果您對我的行銷企劃、專案管理或設計作品感興趣，歡迎透過以下平台與我聯繫！
+                </p>
+                
+                <div class="flex flex-col items-center gap-8 relative z-10">
+                    <!-- 3個 Icon -->
+                    <div class="flex justify-center gap-6">
+                        <!-- Email -->
+                        <a href="mailto:unacherry1989@gmail.com" class="flex items-center justify-center w-14 h-14 bg-transparent border border-white/30 text-white rounded-xl hover:bg-white hover:text-dark transition-all hover:-translate-y-1 shadow-sm" title="Email">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/iriskechin/" target="_blank" class="flex items-center justify-center w-14 h-14 bg-transparent border border-white/30 text-white rounded-xl hover:bg-white hover:text-dark transition-all hover:-translate-y-1 shadow-sm" title="Instagram">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/iriskochin/" target="_blank" class="flex items-center justify-center w-14 h-14 bg-transparent border border-white/30 text-white rounded-xl hover:bg-white hover:text-dark transition-all hover:-translate-y-1 shadow-sm" title="LinkedIn">
+                            <i class="fab fa-linkedin-in text-2xl"></i>
+                        </a>
+                    </div>
+
+                    <!-- 聯絡按鈕 -->
+                    <button id="open-contact-btn" class="bg-primary hover:bg-accent text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-1">
+                        留言給我
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- 頁尾 Footer -->
+    <footer class="bg-light py-8 text-center border-t border-secondary/20">
+        <p class="text-gray-500 text-sm">
+            &copy; 2026 <span class="text-primary font-medium">趙克秦 Iris</span>. All rights reserved. | 新北市, 台灣
+        </p>
+    </footer>
+
+    <!-- 聯絡表單 Modal -->
+    <div id="contact-modal" class="fixed inset-0 bg-dark/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="contact-modal-content">
+            <div class="bg-light px-6 py-4 border-b border-secondary/30 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-dark">與我聯絡</h3>
+                <button id="close-contact-btn" class="text-gray-500 hover:text-dark focus:outline-none transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 md:p-8">
+                <form id="contact-form" class="space-y-5">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">怎麼稱呼 *</label>
+                        <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow bg-gray-50 focus:bg-white text-dark">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">電子郵件 *</label>
+                        <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow bg-gray-50 focus:bg-white text-dark">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">留下想說的話 *</label>
+                        <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow bg-gray-50 focus:bg-white resize-none text-dark"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-accent text-white font-medium py-3 rounded-lg transition-colors duration-300 shadow-md">
+                        送出訊息
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 導覽列滾動陰影效果 -->
+    <script>
+        // 手機版選單開關
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if(mobileMenu.classList.contains('hidden')){
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        });
+
+        // 點擊手機版選單連結後自動收合
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // 聯絡表單 Modal 控制邏輯
+        const modal = document.getElementById('contact-modal');
+        const modalContent = document.getElementById('contact-modal-content');
+        const openBtn = document.getElementById('open-contact-btn');
+        const closeBtn = document.getElementById('close-contact-btn');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        
+        // 點擊背景關閉表單
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 處理表單送出（整合 Google Apps Script）
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            
+            // 取得表單欄位資料
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // 按鈕顯示傳送中狀態
+            submitBtn.innerText = '傳送中...';
+            submitBtn.disabled = true;
+
+            // ⚠️ 請將下方的 URL 替換為您的 Google Apps Script 部署網址
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbz0nES8GydVm0aMTU80CbRTGPSB5BA0_7oEnTy_BMVUHdZvu5nHeKD98PJcXtsvYHiO/exec';
+            
+            // 使用 FormData 包裝資料，這是避開 GAS CORS Preflight 錯誤的最佳做法
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('message', message);
+
+            // 送出 POST 請求到 Google Sheets
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // 成功提示效果
+                submitBtn.innerText = '送出成功！';
+                submitBtn.classList.remove('bg-primary', 'hover:bg-accent');
+                submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                
+                // 延遲後關閉視窗並復原按鈕狀態
+                setTimeout(() => {
+                    closeModal();
+                    e.target.reset(); // 清空表單
+                    submitBtn.disabled = false;
+                    setTimeout(() => {
+                        submitBtn.innerText = originalText;
+                        submitBtn.classList.add('bg-primary', 'hover:bg-accent');
+                        submitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    }, 300);
+                }, 1500);
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                submitBtn.innerText = '發生錯誤，請稍後再試';
+                submitBtn.classList.remove('bg-primary', 'hover:bg-accent');
+                submitBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+                
+                // 錯誤後恢復按鈕
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText;
+                    submitBtn.classList.add('bg-primary', 'hover:bg-accent');
+                    submitBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                }, 3000);
+            });
+        });
+
+        // 導覽列滾動陰影效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // 滾動顯示動畫 (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealOnScroll.observe(el);
+        });
+    </script>
+</body>
+</html>
