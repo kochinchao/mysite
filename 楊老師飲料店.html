@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楊老大飲料店線上訂購</title>
+    
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configure Custom Theme Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#FFF9F2',    
+                            DEFAULT: '#F59E0B',  
+                            orange: '#EA580C',   
+                            brown: '#78350F',    
+                            accent: '#DC2626'    
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #FFF9F2; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased font-sans relative">
+
+    <!-- Header / Hero Section (Upgraded for 30-45 Demographic) -->
+    <header class="w-full bg-stone-50 shadow-sm relative border-b border-stone-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="relative h-72 md:h-96 w-full overflow-hidden md:rounded-b-3xl shadow-inner bg-stone-900">
+                <!-- Premium aesthetic background image -->
+                <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=1400&auto=format&fit=crop" 
+                     alt="楊老大職人茶飲" 
+                     class="w-full h-full object-cover object-center opacity-70 mix-blend-overlay transition-transform duration-700 hover:scale-105">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent flex flex-col justify-end p-6 md:p-12 text-center md:text-left">
+                    <div class="max-w-2xl">
+                        <h1 class="text-4xl md:text-5xl font-black text-white tracking-widest mb-3 drop-shadow-lg" style="font-family: 'Noto Serif TC', serif;">楊老大 職人茶飲</h1>
+                        <p class="text-brand-light font-medium text-lg md:text-xl tracking-wide opacity-90 mb-4 font-light">
+                            <span class="inline-block border-b border-brand-orange pb-1">用心泡好茶，老大最堅持</span>
+                        </p>
+                        <div class="inline-flex items-center gap-2 bg-brand-orange/90 backdrop-blur-sm text-white px-5 py-2 rounded-lg text-sm font-medium tracking-wide shadow-lg border border-white/20">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
+                            </svg>
+                            開幕慶：全品項買五送一
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 relative">
+        
+        <!-- Menu Section -->
+        <section class="flex-1 pb-24 md:pb-0" id="menu-container">
+            <!-- Menu items will be injected here by JavaScript -->
+        </section>
+
+        <!-- Mobile Cart Overlay -->
+        <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity" onclick="toggleCart()"></div>
+
+        <!-- Cart Section (Drawer on Mobile) -->
+        <aside id="cart-drawer" class="fixed top-0 right-0 w-[85%] max-w-sm h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col md:static md:w-80 md:h-auto md:max-h-[calc(100vh-2rem)] md:sticky md:top-4 md:translate-x-0 md:rounded-2xl md:border md:border-brand/20 overflow-hidden">
+            
+            <div class="bg-brand-brown text-white p-4 flex justify-between items-center shadow-sm">
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    購物車
+                </h2>
+                <button class="md:hidden text-white hover:text-brand-light p-1 focus:outline-none" onclick="toggleCart()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Cart Items -->
+            <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar bg-brand-light/30">
+                <div class="text-center text-gray-400 mt-10" id="empty-cart-msg">
+                    <p>購物車是空的喔！</p>
+                    <p class="text-sm mt-1">快去點些好吃的吧🤤</p>
+                </div>
+            </div>
+
+            <!-- Cart Footer -->
+            <div class="p-4 bg-white border-t border-brand/20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div id="customer-form" class="mb-4 space-y-2 hidden">
+                    <input type="text" id="cust-name" placeholder="姓名 (必填)" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange" required>
+                    <input type="tel" id="cust-phone" placeholder="電話 (必填)" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange" required>
+                    <input type="text" id="cust-address" placeholder="外送地址 (選填)" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange">
+                </div>
+
+                <div id="discount-progress" class="mb-3 text-sm text-center font-medium text-brand-orange bg-orange-50 py-1.5 rounded-lg border border-orange-100 hidden">
+                    還差 <span id="amount-to-discount" class="font-bold text-brand-accent"></span> 杯即可享「買五送一」！
+                </div>
+                <div id="discount-success" class="mb-3 text-sm text-center font-bold text-green-600 bg-green-50 py-1.5 rounded-lg border border-green-100 hidden">
+                    🎉 已符合買五送一優惠！(折抵 <span id="free-discount-amount"></span> 元)
+                </div>
+
+                <div class="flex justify-between text-gray-600 mb-2">
+                    <span>小計</span>
+                    <span>$<span id="cart-subtotal">0</span></span>
+                </div>
+                <div class="flex justify-between text-brand-accent font-medium mb-2 hidden" id="discount-row">
+                    <span>買五送一折扣</span>
+                    <span>-$<span id="cart-discount">0</span></span>
+                </div>
+                <div class="flex justify-between text-xl font-bold text-brand-brown mt-2 pt-2 border-t border-dashed border-gray-300">
+                    <span>總計</span>
+                    <span>$<span id="cart-total">0</span></span>
+                </div>
+                
+                <button id="checkout-btn" class="w-full mt-4 bg-brand hover:bg-brand-orange text-white font-bold py-3 rounded-xl shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="checkout()">
+                    送出訂單
+                </button>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Mobile Floating Cart Button -->
+    <button onclick="toggleCart()" class="md:hidden fixed bottom-6 right-6 bg-brand-brown text-white rounded-full p-4 shadow-xl z-30 flex items-center justify-center hover:bg-brand-orange transition-colors border-2 border-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <span id="mobile-cart-badge" class="absolute -top-2 -right-2 bg-brand-accent text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-white hidden">
+            0
+        </span>
+    </button>
+
+    <!-- Options Modal (For Drinks) -->
+    <div id="options-modal" class="fixed inset-0 bg-black/60 z-[70] hidden flex items-center justify-center px-4 transition-opacity">
+        <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-brand-light">
+                <div>
+                    <h3 id="modal-item-name" class="text-xl font-bold text-brand-brown">商品名稱</h3>
+                    <p class="text-brand-orange font-bold mt-1">$<span id="modal-price"></span></p>
+                </div>
+                <button onclick="closeOptionsModal()" class="text-gray-400 hover:text-gray-800 focus:outline-none p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="p-5 overflow-y-auto space-y-6 flex-1 bg-white">
+                <!-- Size Options -->
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center gap-1">
+                        大小 <span class="text-xs font-normal text-gray-400">(Size)</span>
+                    </h4>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="S" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">S</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="M" class="peer hidden" checked>
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">M</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="L" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">L</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Ice Options -->
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center gap-1">
+                        冰塊 <span class="text-xs font-normal text-gray-400">(Ice)</span>
+                    </h4>
+                    <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="ice" value="去冰" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">去冰</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="ice" value="微冰" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">微冰</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="ice" value="少冰" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">少冰</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="ice" value="正常冰" class="peer hidden" checked>
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">正常冰</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Sweetness Options -->
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center gap-1">
+                        甜度 <span class="text-xs font-normal text-gray-400">(Sweetness)</span>
+                    </h4>
+                    <div class="grid grid-cols-3 gap-3 sm:grid-cols-5">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="sweetness" value="無糖" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">無糖</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="sweetness" value="微糖" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">微糖</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="sweetness" value="半糖" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">半糖</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="sweetness" value="少糖" class="peer hidden">
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">少糖</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="sweetness" value="全糖" class="peer hidden" checked>
+                            <div class="text-center py-2.5 text-sm font-medium border-2 border-gray-100 text-gray-500 rounded-xl peer-checked:bg-orange-50 peer-checked:text-brand-orange peer-checked:border-brand-orange hover:bg-gray-50 transition-colors">全糖</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <button id="modal-confirm-btn" class="w-full bg-brand hover:bg-brand-orange text-white font-bold py-3 px-5 rounded-xl shadow-md transition-colors focus:outline-none flex justify-between items-center">
+                    <span class="text-base tracking-wide">確認加入購物車</span>
+                    <span id="modal-btn-price" class="text-xl font-black bg-white/20 px-3 py-1 rounded-lg"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Dummy Data (Added isDrink property) ---
+        const menuData = [
+            {
+                category: "老大招牌推薦 🧋",
+                items: [
+                    { id: "s1", name: "老大波霸奶茶", prices: { S: 35, M: 45, L: 55 }, isDrink: true },
+                    { id: "s2", name: "楊老大特調水果茶", prices: { S: 45, M: 55, L: 65 }, isDrink: true },
+                    { id: "s3", name: "濃郁手作黑糖鮮奶", prices: { S: 50, M: 60, L: 70 }, isDrink: true }
+                ]
+            },
+            {
+                category: "經典原茶系列 🍵",
+                items: [
+                    { id: "t1", name: "炭焙鐵觀音", prices: { S: 25, M: 30, L: 35 }, isDrink: true },
+                    { id: "t2", name: "茉莉綠茶", prices: { S: 20, M: 25, L: 30 }, isDrink: true },
+                    { id: "t3", name: "熟成阿薩姆紅茶", prices: { S: 20, M: 25, L: 30 }, isDrink: true },
+                    { id: "t4", name: "頂級高山金萱", prices: { S: 25, M: 35, L: 40 }, isDrink: true }
+                ]
+            },
+            {
+                category: "濃郁奶茶與鮮奶 🥛",
+                items: [
+                    { id: "m1", name: "英式奶茶", prices: { S: 35, M: 45, L: 50 }, isDrink: true },
+                    { id: "m2", name: "茉香奶綠", prices: { S: 35, M: 45, L: 50 }, isDrink: true },
+                    { id: "m3", name: "觀音拿鐵", prices: { S: 45, M: 55, L: 65 }, isDrink: true },
+                    { id: "m4", name: "鮮奶紅茶", prices: { S: 45, M: 55, L: 65 }, isDrink: true }
+                ]
+            },
+            {
+                category: "消暑冰沙與果茶 🥭",
+                items: [
+                    { id: "f1", name: "爆爽檸檬青茶", prices: { S: 35, M: 45, L: 55 }, isDrink: true },
+                    { id: "f2", name: "芒果冰沙(季節限定)", prices: { S: 50, M: 60, L: 70 }, isDrink: true },
+                    { id: "f3", name: "翡翠百香雙響炮", prices: { S: 40, M: 50, L: 60 }, isDrink: true }
+                ]
+            }
+        ];
+
+        // --- State ---
+        let cart = {}; 
+        let currentSelectedItem = null;
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+            updateCartUI();
+        });
+
+        // --- Menu Rendering ---
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = ''; 
+
+            menuData.forEach(cat => {
+                const section = document.createElement('div');
+                section.className = 'mb-10';
+
+                const title = document.createElement('h2');
+                title.className = 'text-2xl font-bold text-brand-brown border-b-2 border-brand mb-4 pb-2 flex items-center';
+                title.textContent = cat.category;
+                section.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+
+                cat.items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-4 rounded-2xl shadow-sm border border-orange-100 flex justify-between items-center hover:shadow-md transition-shadow relative overflow-hidden group';
+                    
+                    const info = document.createElement('div');
+                    info.className = 'pr-4 flex-1';
+                    info.innerHTML = `
+                        <h3 class="text-lg font-bold text-gray-800">${item.name}</h3>
+                        <p class="text-brand-orange font-bold text-sm mt-2">S $${item.prices.S} / M $${item.prices.M} / L $${item.prices.L}</p>
+                    `;
+
+                    const btnContainer = document.createElement('div');
+                    const addBtn = document.createElement('button');
+                    addBtn.className = 'bg-brand hover:bg-brand-orange text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold shadow-sm transition-transform transform active:scale-95 focus:outline-none';
+                    addBtn.innerHTML = '+';
+                    
+                    addBtn.onclick = () => {
+                        openOptionsModal(item);
+                    };
+                    
+                    btnContainer.appendChild(addBtn);
+                    card.appendChild(info);
+                    card.appendChild(btnContainer);
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        // --- Modal Logic ---
+        function openOptionsModal(item) {
+            currentSelectedItem = item;
+            document.getElementById('modal-item-name').textContent = item.name;
+            
+            // 每次打開還原預設選項 (M, 正常冰, 全糖)
+            const defaultSize = 'M';
+            document.querySelector(`input[name="size"][value="${defaultSize}"]`).checked = true;
+            document.querySelector('input[name="ice"][value="正常冰"]').checked = true;
+            document.querySelector('input[name="sweetness"][value="全糖"]').checked = true;
+            
+            // 初始化價格
+            const initialPrice = item.prices[defaultSize];
+            document.getElementById('modal-price').textContent = initialPrice;
+            document.getElementById('modal-btn-price').textContent = '$' + initialPrice;
+            
+            // 綁定 Size 切換事件來更新價格
+            document.querySelectorAll('input[name="size"]').forEach(input => {
+                input.onchange = (e) => {
+                    const newPrice = currentSelectedItem.prices[e.target.value];
+                    document.getElementById('modal-price').textContent = newPrice;
+                    document.getElementById('modal-btn-price').textContent = '$' + newPrice;
+                };
+            });
+            
+            document.getElementById('options-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeOptionsModal() {
+            document.getElementById('options-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+            currentSelectedItem = null;
+        }
+
+        document.getElementById('modal-confirm-btn').onclick = () => {
+            if (!currentSelectedItem) return;
+
+            const size = document.querySelector('input[name="size"]:checked').value;
+            const ice = document.querySelector('input[name="ice"]:checked').value;
+            const sweetness = document.querySelector('input[name="sweetness"]:checked').value;
+            const price = currentSelectedItem.prices[size];
+            
+            addToCart(currentSelectedItem, { size, ice, sweetness, price });
+            closeOptionsModal();
+        };
+
+        // --- Cart Logic ---
+        function addToCart(item, options) {
+            const cartKey = `${item.id}-${options.size}-${options.ice}-${options.sweetness}`;
+            
+            if (cart[cartKey]) {
+                cart[cartKey].quantity += 1;
+            } else {
+                cart[cartKey] = { item: item, quantity: 1, options: options, price: options.price };
+            }
+            updateCartUI();
+            
+            showToast(`已將 ${item.name} (${options.size}) 加入購物車`);
+        }
+
+        function decreaseQuantity(cartKey) {
+            if (cart[cartKey]) {
+                if (cart[cartKey].quantity > 1) {
+                    cart[cartKey].quantity -= 1;
+                } else {
+                    delete cart[cartKey];
+                }
+                updateCartUI();
+            }
+        }
+
+        function increaseQuantity(cartKey) {
+            if (cart[cartKey]) {
+                cart[cartKey].quantity += 1;
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const badge = document.getElementById('mobile-cart-badge');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const customerForm = document.getElementById('customer-form');
+            
+            cartItemsContainer.innerHTML = '';
+            
+            let subtotal = 0;
+            let totalQuantity = 0;
+            let allItems = []; // 儲存所有單杯價格，用於計算買五送一
+            const cartKeys = Object.keys(cart);
+
+            if (cartKeys.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center text-gray-400 mt-10" id="empty-cart-msg">
+                        <p>購物車是空的喔！</p>
+                        <p class="text-sm mt-1">快去點些好喝的吧🍹</p>
+                    </div>
+                `;
+                badge.classList.add('hidden');
+                checkoutBtn.disabled = true;
+                if (customerForm) customerForm.classList.add('hidden');
+            } else {
+                checkoutBtn.disabled = false;
+                badge.classList.remove('hidden');
+                if (customerForm) customerForm.classList.remove('hidden');
+
+                cartKeys.forEach(key => {
+                    const cartItem = cart[key];
+                    const itemSubtotal = cartItem.price * cartItem.quantity;
+                    subtotal += itemSubtotal;
+                    totalQuantity += cartItem.quantity;
+
+                    for(let i=0; i<cartItem.quantity; i++) {
+                        allItems.push(cartItem.price);
+                    }
+
+                    let optionsHtml = `<p class="text-xs text-gray-500 mt-1 bg-gray-100 inline-block px-2 py-0.5 rounded-md">${cartItem.options.size} / ${cartItem.options.ice} / ${cartItem.options.sweetness}</p>`;
+
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex justify-between items-center bg-white p-3 rounded-xl border border-gray-100 shadow-sm';
+                    itemEl.innerHTML = `
+                        <div class="flex-1 pr-2">
+                            <h4 class="font-bold text-gray-800 text-sm">${cartItem.item.name}</h4>
+                            ${optionsHtml}
+                            <p class="text-brand-orange font-medium text-sm mt-1">$${cartItem.price}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center bg-gray-50 rounded-lg border border-gray-200">
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-brand-orange hover:bg-gray-100 rounded-l-lg transition focus:outline-none" onclick="decreaseQuantity('${key}')">-</button>
+                                <span class="w-6 text-center text-sm font-bold text-gray-800">${cartItem.quantity}</span>
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-brand-orange hover:bg-gray-100 rounded-r-lg transition focus:outline-none" onclick="increaseQuantity('${key}')">+</button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+            }
+
+            badge.textContent = totalQuantity;
+
+            // 計算買五送一折扣 (折抵金額為所有杯數中最便宜的項目)
+            let discountAmount = 0;
+            allItems.sort((a, b) => a - b); // 單杯價格由低到高排序
+            const freeCount = Math.floor(totalQuantity / 6); // 計算每滿6杯可以送幾杯
+            
+            for (let i = 0; i < freeCount; i++) {
+                discountAmount += allItems[i]; // 取前 n 個最便宜的做折抵
+            }
+
+            let total = subtotal - discountAmount;
+
+            const discountProgress = document.getElementById('discount-progress');
+            const discountSuccess = document.getElementById('discount-success');
+            const discountRow = document.getElementById('discount-row');
+            
+            const remainder = totalQuantity % 6;
+
+            if (totalQuantity > 0 && remainder > 0) {
+                const needed = 6 - remainder;
+                document.getElementById('amount-to-discount').textContent = needed;
+                discountProgress.classList.remove('hidden');
+            } else {
+                discountProgress.classList.add('hidden');
+            }
+
+            if (freeCount > 0) {
+                discountSuccess.classList.remove('hidden');
+                discountRow.classList.remove('hidden');
+                document.getElementById('free-discount-amount').textContent = discountAmount;
+                document.getElementById('cart-discount').textContent = discountAmount;
+            } else {
+                discountSuccess.classList.add('hidden');
+                discountRow.classList.add('hidden');
+            }
+
+            document.getElementById('cart-subtotal').textContent = subtotal;
+            document.getElementById('cart-total').textContent = total;
+        }
+
+        // --- Drawer Toggle ---
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // --- Customized Alert / Message Modal (Replaces native alert) ---
+        function showMessageModal(title, text) {
+            const msgBox = document.createElement('div');
+            msgBox.className = 'fixed inset-0 z-[80] flex items-center justify-center bg-black/60 px-4 transition-opacity';
+            msgBox.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform scale-100 transition-transform">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">${title}</h3>
+                    <p class="text-gray-600 mb-6">${text}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="bg-brand hover:bg-brand-orange text-white font-bold py-2 px-6 rounded-full w-full transition-colors focus:outline-none">
+                        我知道了
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(msgBox);
+        }
+
+        // --- Checkout ---
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbz4Lud9GtxD_7dZckSR57o64ajYYHmKiLM2wzQKvykHlA95CYpvimMkknbEOZiff5otoQ/exec";
+
+        async function checkout() {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !phone) {
+                showMessageModal('溫馨提示', '請填寫您的姓名與電話，以便我們與您聯繫！');
+                return;
+            }
+
+            const total = document.getElementById('cart-total').textContent;
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            // 格式化購物車內容，包含客製化選項
+            const itemsString = Object.values(cart)
+                .map(c => {
+                    let optText = c.options ? `(${c.options.size}/${c.options.ice}/${c.options.sweetness})` : '';
+                    return `${c.item.name}${optText} x${c.quantity}`;
+                })
+                .join(', ');
+
+            // 產生唯一訂單編號
+            const orderId = "ORD-" + Date.now();
+
+            const orderData = {
+                action: "order",     // 告訴 GAS 這是新增訂單
+                orderId: orderId,    // 傳送訂單編號
+                name: name,
+                phone: phone,
+                address: address,
+                items: itemsString,
+                total: parseInt(total)
+            };
+
+            try {
+                checkoutBtn.textContent = '訂單處理中...';
+                checkoutBtn.disabled = true;
+
+                const response = await fetch(GAS_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8",
+                    },
+                    body: JSON.stringify(orderData),
+                    redirect: "follow"
+                });
+
+                const result = await response.json();
+                
+                if (result.status === "success" || !result.error) {
+                    showSuccessModal(total, orderId); // 將 orderId 傳給成功視窗
+                    document.getElementById('cust-name').value = '';
+                    document.getElementById('cust-phone').value = '';
+                    document.getElementById('cust-address').value = '';
+                } else {
+                    console.error("寫入失敗：", result.message);
+                    showMessageModal('系統錯誤', '系統發生錯誤，請稍後再試。');
+                }
+            } catch (error) {
+                console.error("請求錯誤：", error);
+                showMessageModal('網路異常', '網路連線異常，請檢查網路狀態後再試一次。');
+            } finally {
+                if (Object.keys(cart).length > 0) {
+                    checkoutBtn.textContent = '送出訂單';
+                    checkoutBtn.disabled = false;
+                }
+            }
+        }
+
+        function showSuccessModal(total, orderId) {
+            const msgBox = document.createElement('div');
+            msgBox.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/60 px-4 transition-opacity';
+            msgBox.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform scale-100 transition-transform">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-stone-800 mb-2">🎉 訂單已送出！</h3>
+                    <p class="text-stone-500 text-sm mb-4">訂單編號: ${orderId}</p>
+                    <p class="text-stone-600 mb-3">您的餐點總額為 <span class="font-bold text-brand-orange text-lg">$${total}</span>。</p>
+                    <p class="text-brand-orange font-bold text-lg mb-6 bg-orange-50 py-2 rounded-lg border border-orange-100 shadow-sm">🧑‍🍳 訂單製作中...</p>
+                    <div class="flex gap-3">
+                        <button id="cancel-order-btn" class="flex-1 bg-stone-100 hover:bg-stone-200 text-stone-600 font-bold py-3 px-4 rounded-xl transition-colors focus:outline-none">
+                            取消訂單
+                        </button>
+                        <button id="close-msg-btn" class="flex-1 bg-brand hover:bg-brand-orange text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors focus:outline-none">
+                            確認
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(msgBox);
+
+            document.getElementById('close-msg-btn').onclick = () => {
+                document.body.removeChild(msgBox);
+                cart = {};
+                updateCartUI();
+                const checkoutBtn = document.getElementById('checkout-btn');
+                checkoutBtn.textContent = '送出訂單';
+                if(!document.getElementById('cart-drawer').classList.contains('translate-x-full') && window.innerWidth < 768) {
+                    toggleCart();
+                }
+            };
+            
+            document.getElementById('cancel-order-btn').onclick = async () => {
+                const cancelBtn = document.getElementById('cancel-order-btn');
+                const closeBtn = document.getElementById('close-msg-btn');
+                cancelBtn.textContent = '處理中...';
+                cancelBtn.disabled = true;
+                closeBtn.disabled = true;
+
+                // 呼叫 GAS 取消訂單
+                try {
+                    await fetch(GAS_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({ action: "cancel", orderId: orderId }),
+                        redirect: "follow"
+                    });
+                } catch (e) {
+                    console.error("取消請求發送失敗", e);
+                }
+
+                document.body.removeChild(msgBox);
+                showMessageModal('訂單已取消', '您的訂單已成功取消。');
+                
+                const checkoutBtn = document.getElementById('checkout-btn');
+                checkoutBtn.textContent = '送出訂單';
+                checkoutBtn.disabled = false;
+            };
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full text-sm shadow-lg z-50 transition-opacity duration-300 pointer-events-none md:bottom-10';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
